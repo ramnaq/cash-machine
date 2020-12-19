@@ -32,6 +32,10 @@ class CashMachine:
         self._total = 0
 
     @property
+    def total(self):
+        return self._total
+
+    @property
     def five(self):
         return self._five
 
@@ -82,35 +86,35 @@ class CashMachine:
         bills = list(filter(lambda b: b[-1] != 0, bills))
         bills.reverse()
 
+        cashing_out = amount
         print('\n\nAMOUNT: ', amount)
         for bill in bills:
-            needed = self._bills_needed(amount, bill[1])
+            needed = self._bills_needed(cashing_out, bill[1])
             available = bill[2]
 
-            print('NEEDED :', needed)
-            print('AVAILABLE :', available)
+            print('BILL: ', bill[1])
+            print('NEEDED:', needed)
+            print('AVAILABLE:', available)
             if needed <= 0:
                 continue
-            if needed <= available:
-                print('amount: ', amount)
-                print('RETURN')
-                result.add(bill[1], needed)
-                print('RESULT.TOTAL ', result.total)
-                bill[2] -= needed
-                return result
 
-            print('NEXT BILL')
+            if needed <= available:  #if needed <= available:
+                used = needed
+            else:
+                used = available
 
-            remaining = amount - needed*bill[1]
-            cash_out = self.cash_out(remaining)
+            result.add(bill[1], used)
+            bill[2] -= used
+            cashing_out -= used * bill[1]
+            print('cashing_out uptaded: ', cashing_out)
+            continue
+
+        if result.total == amount:
+            return result
+        else:
+            return CashOut()
 
     def _bills_needed(self, amount, bill):
-        if amount % bill != 0:
-            return -1;
-
-        return amount / bill
-
-    def _bills_enough(self, amount, bill):
         if bill > amount:
             return -1;
 
