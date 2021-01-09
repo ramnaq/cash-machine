@@ -8,7 +8,7 @@ class Tests(unittest.TestCase):
 
     def test_cash_out_less_than_min_NOT_OK(self):
         cash_machine = CashMachine()
-        cash_machine.five = 1
+        cash_machine.deposit(5, 1)
 
         result = cash_machine.cash_out(4)
 
@@ -16,7 +16,7 @@ class Tests(unittest.TestCase):
 
     def test_cash_out_amount_not_multiple_of_min_NOT_OK(self):
         cash_machine = CashMachine()
-        cash_machine.five = 2
+        cash_machine.deposit(5, 2)
 
         result = cash_machine.cash_out(7)
 
@@ -25,17 +25,17 @@ class Tests(unittest.TestCase):
     def test_total(self):
         cash_machine = CashMachine()
 
-        cash_machine.five = 2
-        cash_machine.ten = 1
-        cash_machine.twenty = 2
-        cash_machine.fifty = 3
+        cash_machine.deposit(5, 2)
+        cash_machine.deposit(10, 1)
+        cash_machine.deposit(20, 2)
+        cash_machine.deposit(50, 3)
 
         self.assertEqual(cash_machine.total, 5*2 + 10*1 + 20*2 + 3*50)
 
-    def test_cash_out_more_than_total_NOT_OK(self):
+    def test_cash_out_less_than_total_NOT_OK(self):
         cash_machine = CashMachine()
-        cash_machine.five = 2
-        cash_machine.five = 2
+        cash_machine.deposit(5, 2)
+        cash_machine.deposit(5, 2)
 
         result = cash_machine.cash_out(7)
 
@@ -43,7 +43,7 @@ class Tests(unittest.TestCase):
 
     def test_cash_out_five_OK(self):
         cash_machine = CashMachine()
-        cash_machine.five = 1
+        cash_machine.deposit(5, 1)
 
         result = cash_machine.cash_out(5)
 
@@ -52,7 +52,7 @@ class Tests(unittest.TestCase):
 
     def test_cash_out_ten_having_two_five_bills_OK(self):
         cash_machine = CashMachine()
-        cash_machine.five = 2
+        cash_machine.deposit(5, 2)
 
         result = cash_machine.cash_out(10)
 
@@ -61,7 +61,7 @@ class Tests(unittest.TestCase):
 
     def test_cash_out_ten_having_one_ten_bill_OK(self):
         cash_machine = CashMachine()
-        cash_machine.ten = 1
+        cash_machine.deposit(10, 1)
 
         result = cash_machine.cash_out(10)
 
@@ -70,7 +70,7 @@ class Tests(unittest.TestCase):
 
     def test_cash_out_fifteen_having_three_five_bill_OK(self):
         cash_machine = CashMachine()
-        cash_machine.five = 3
+        cash_machine.deposit(5, 3)
 
         result = cash_machine.cash_out(15)
 
@@ -79,8 +79,8 @@ class Tests(unittest.TestCase):
 
     def test_cash_out_fifteen_having_two_five_bill_and_one_ten_bill_OK(self):
         cash_machine = CashMachine()
-        cash_machine.five = 2
-        cash_machine.ten = 1
+        cash_machine.deposit(5, 2)
+        cash_machine.deposit(10, 1)
 
         result = cash_machine.cash_out(15)
 
@@ -90,7 +90,7 @@ class Tests(unittest.TestCase):
 
     def test_cash_out_thirty_having_two_twenty_bill_NOT_OK(self):
         cash_machine = CashMachine()
-        cash_machine.twenty = 2
+        cash_machine.deposit(20, 2)
 
         result = cash_machine.cash_out(30)
 
@@ -98,9 +98,9 @@ class Tests(unittest.TestCase):
 
     def test_cash_out_sixty_five_OK(self):
         cash_machine = CashMachine()
-        cash_machine.five = 1
-        cash_machine.ten = 2
-        cash_machine.twenty = 2
+        cash_machine.deposit(5, 1)
+        cash_machine.deposit(10, 2)
+        cash_machine.deposit(20, 2)
 
         result = cash_machine.cash_out(65)
 
@@ -111,9 +111,9 @@ class Tests(unittest.TestCase):
 
     def test_cash_out_sixty_five_NOT_OK(self):
         cash_machine = CashMachine()
-        cash_machine.five = 1
-        cash_machine.ten = 1
-        cash_machine.twenty = 2
+        cash_machine.deposit(5, 1)
+        cash_machine.deposit(10, 1)
+        cash_machine.deposit(20, 2)
 
         result = cash_machine.cash_out(65)
 
@@ -124,9 +124,9 @@ class Tests(unittest.TestCase):
 
     def test_cash_out_seventy_having_sixty_five_NOT_OK(self):
         cash_machine = CashMachine()
-        cash_machine.five = 1
-        cash_machine.ten = 2
-        cash_machine.twenty = 2
+        cash_machine.deposit(5, 1)
+        cash_machine.deposit(10, 2)
+        cash_machine.deposit(20, 2)
 
         result = cash_machine.cash_out(70)
 
