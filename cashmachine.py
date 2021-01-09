@@ -57,18 +57,14 @@ class CashMachine:
         bills.reverse()
 
         cashing_out = amount
-        print('\n\nAMOUNT: ', amount)
         for bill in bills:
             needed = self._bills_needed(cashing_out, bill[0])
             available = bill[1]
 
-            print('BILL: ', bill[1])
-            print('NEEDED:', needed)
-            print('AVAILABLE:', available)
             if needed <= 0:
                 continue
 
-            if needed <= available:  #if needed <= available:
+            if needed <= available:
                 used = needed
             else:
                 used = available
