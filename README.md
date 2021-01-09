@@ -8,6 +8,6 @@ This is not an application. But there are some tests. To run
 the tests, execute
 
 ```
-$ python -m unittest tests.py
+$ python -m unittest
 ```
 
