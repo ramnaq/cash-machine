@@ -42,7 +42,7 @@ class CashMachine:
         bill[1] += quantity
         self.total += value * quantity
 
-    def cash_out(self, amount):
+    def withdraw(self, amount):
         result = CashOut()
 
         if amount > self.total:
